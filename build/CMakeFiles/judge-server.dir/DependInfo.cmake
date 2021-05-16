@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/src/connector/connector.cpp" "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/build/CMakeFiles/judge-server.dir/src/connector/connector.cpp.o"
-  "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/src/judge/judge.cpp" "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/build/CMakeFiles/judge-server.dir/src/judge/judge.cpp.o"
-  "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/src/main.cpp" "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/build/CMakeFiles/judge-server.dir/src/main.cpp.o"
-  "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/src/type/types.cpp" "/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/build/CMakeFiles/judge-server.dir/src/type/types.cpp.o"
+  "/mnt/d/judge-server/src/connector/connector.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/connector/connector.cpp.o"
+  "/mnt/d/judge-server/src/judge/judge.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/judge/judge.cpp.o"
+  "/mnt/d/judge-server/src/main.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/main.cpp.o"
+  "/mnt/d/judge-server/src/type/types.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/type/types.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

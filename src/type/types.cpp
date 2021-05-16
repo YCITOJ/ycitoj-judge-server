@@ -1,9 +1,12 @@
 #include "types.h"
-const std::string in_path = std::string("/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/prob/");
-const std::string user_out = std::string("/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/gen/out/");
-const std::string exec_out = std::string("/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/gen/exec/");
-const std::string judger_path = std::string("/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/src/judge/judger");
-const std::string source_path = std::string("/mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server/sub/");
+///mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server
+const std::string serv_path = std::string("../");
+const std::string comp_path = std::string("../comp/comp.sh");
+const std::string ans_path = serv_path + std::string("prob/");
+const std::string user_out = serv_path + std::string("gen/out/");
+const std::string exec_out = serv_path + std::string("gen/exec/");
+const std::string judger_path = serv_path + std::string("judge-core/judger");
+const std::string source_path = serv_path + std::string("sub/");
 
 void JudgeTask::show_task(){
     using namespace std;
@@ -49,7 +52,7 @@ std::string parse_code(char* data){
     return str;
 }
 std::string que_path(std::string que_id){
-    return  in_path + que_id + std::string("/");
+    return  ans_path + que_id + std::string("/");
 }
 
 JudgeTask parse_task(char* data){
@@ -65,6 +68,7 @@ JudgeTask parse_task(char* data){
     ret.output_path = user_out + sub_id + std::string(".out");
     ret.source_path = source_path + sub_id + std::string(".") + ret.lang;
     ret.gen_path =  exec_out;
+    ret.comp_path = que_path(que_id) + que_id + std::string(".out");
     return ret;
 }   
 
@@ -80,7 +84,9 @@ const char** task_to_args(JudgeTask &jt){
     argv[5] = jt.output_path.c_str();
     argv[6] = jt.source_path.c_str();
     argv[7] = jt.submitid.c_str();
-    argv[8] = jt.gen_path.c_str(); 
-    argv[9] = NULL;
+    argv[8] = jt.gen_path.c_str();
+    // argv[9] = NULL; 
+    argv[9] = jt.comp_path.c_str();
+    argv[10] = NULL;
     return argv;
 }

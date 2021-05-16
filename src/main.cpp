@@ -28,22 +28,27 @@ int main(){
     // }
     // return 0;
 #endif
-    judge_server.connect_to_server((char*)"192.168.10.101", (char*)"4000");
+    judge_server.connect_to_server((char*)"192.168.10.104", (char*)"4000");
     judge_init();
     bool working = 0;
     while (1){
-        pthread_mutex_lock(&mutex);
         if (!task_queue.empty() && !avali.empty()){
-            JudgeTask* task = new JudgeTask; 
+            JudgeTask* task = new JudgeTask();
+            pthread_mutex_lock(&mutex);
+            // static JudgeTask* task = (JudgeTask*) malloc(sizeof(JudgeTask));
             *task = task_queue.front();
             task->tid = avali.front();
             task_queue.pop();
             avali.pop();
-            std::cout << "-----------------"<< task->submitid << "-------------" << std::endl;
+            // system("clear");
+            // std::cout << MAXN_JUDGE_COUNT - avali.size() << " tasks in judge" << std::endl;
+            // std::cout << "-----------------"<< task->submitid << "-------------" << std::endl;
             pthread_create(task->tid, NULL, judge, (void*)task);
             pthread_detach(*task->tid);
+            pthread_mutex_unlock(&mutex);
         }
-        pthread_mutex_unlock(&mutex);
+        pthread_yield();
+        // std::cout << MAXN_JUDGE_COUNT - avali.size() << " tasks in judge" << std::endl;
     }
     // std::ofstream ofs(Test::out, std::ios::out);
     // ofs << "QAQ";

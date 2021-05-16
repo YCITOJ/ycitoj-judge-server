@@ -7,7 +7,7 @@
 #define PARAM_COUNT 15
 #define MAX_CODE_LEN 2000
 enum ResultTag{
-    NORMAL, TLE, MLE, RE, UKE, CE
+    NORMAL, TLE, MLE, RE, UKE, CE, AC, WA
 };
 struct Res
 {
@@ -31,6 +31,7 @@ struct JudgeTask
     std::string submitid;
     std::string gen_path;
     std::string content;
+    std::string comp_path;
     pthread_t* tid;
     int testcases;
     JudgeTask(){};
@@ -47,8 +48,9 @@ struct conn_stat
 JudgeTask parse_task(char* data);
 
 const char** task_to_args(JudgeTask &jt);
-extern const std::string in_path;
+extern const std::string ans_path;
 extern const std::string source_path;
 extern const std::string user_out;
 extern const std::string exec_out;
 extern const std::string judger_path;
+extern const std::string comp_path;
