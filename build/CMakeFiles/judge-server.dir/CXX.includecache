@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/mnt/d/judge-server/src/connector/connector.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/connector/connector.cpp
+connector.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/connector/connector.h
+
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/connector/connector.h
 sys/types.h
 -
 sys/socket.h
@@ -30,27 +34,13 @@ queue
 string
 -
 ../type/types.h
-/mnt/d/judge-server/src/type/types.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/type/types.h
 
-/mnt/d/judge-server/src/judge/judge.cpp
-judge.h
-/mnt/d/judge-server/src/judge/judge.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/type/types.cpp
+types.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/type/types.h
 
-/mnt/d/judge-server/src/judge/judge.h
-unistd.h
--
-pthread.h
--
-fstream
--
-sys/wait.h
--
-../type/types.h
-/mnt/d/judge-server/src/type/types.h
-../connector/connector.h
-/mnt/d/judge-server/src/connector/connector.h
-
-/mnt/d/judge-server/src/type/types.h
+/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/type/types.h
 string
 -
 iostream

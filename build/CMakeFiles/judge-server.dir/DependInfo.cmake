@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/d/judge-server/src/connector/connector.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/connector/connector.cpp.o"
-  "/mnt/d/judge-server/src/judge/judge.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/judge/judge.cpp.o"
-  "/mnt/d/judge-server/src/main.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/main.cpp.o"
-  "/mnt/d/judge-server/src/type/types.cpp" "/mnt/d/judge-server/build/CMakeFiles/judge-server.dir/src/type/types.cpp.o"
+  "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/connector/connector.cpp" "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/judge-server.dir/src/connector/connector.cpp.o"
+  "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/judge/judge.cpp" "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/judge-server.dir/src/judge/judge.cpp.o"
+  "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/main.cpp" "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/judge-server.dir/src/main.cpp.o"
+  "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/src/type/types.cpp" "/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/judge-server.dir/src/type/types.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
