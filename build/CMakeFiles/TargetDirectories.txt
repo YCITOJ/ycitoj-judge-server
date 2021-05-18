@@ -1,3 +1,0 @@
-/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/rebuild_cache.dir
-/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/edit_cache.dir
-/Users/muffin/Documents/OJ/YCITOJ/ycitoj-judge-server/build/CMakeFiles/judge-server.dir
