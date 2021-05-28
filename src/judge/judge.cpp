@@ -74,6 +74,9 @@ void *judge(void *params)
         else 
             break;
     }
+    remove(jt->source_path.c_str());
+    remove(jt->gen_path.c_str());
+    remove(jt->output_path.c_str());
     pthread_mutex_lock(&mutex);
     judge_server.send_res(res);
     // std::cout << "~~~~~~send:" << res.judgeid << std::endl;

@@ -29,6 +29,7 @@ struct JudgeTask
     std::string output_path;
     std::string source_path;
     std::string submitid;
+    std::string gen_folder_path;
     std::string gen_path;
     std::string content;
     std::string comp_path;
@@ -38,7 +39,7 @@ struct JudgeTask
     pthread_t* tid;
     int testcases;
     JudgeTask(){};
-    JudgeTask(std::string _mem, std::string _cpu, std::string _lang, std::string _input, std::string _output, std::string _source, std::string _sub, std::string _gen):mem_limit(_mem), cpu_limit(_cpu), lang(_lang), input_path(_input), output_path(_output), source_path(_source), submitid(_sub), gen_path(_gen){}
+    JudgeTask(std::string _mem, std::string _cpu, std::string _lang, std::string _input, std::string _output, std::string _source, std::string _sub, std::string _gen):mem_limit(_mem), cpu_limit(_cpu), lang(_lang), input_path(_input), output_path(_output), source_path(_source), submitid(_sub), gen_folder_path(_gen){}
     void show_task();
 };
 

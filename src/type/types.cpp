@@ -66,7 +66,8 @@ JudgeTask parse_task(char* data){
     // ret.input_path =  que_path(que_id) + que_id + std::string(".in");
     ret.output_path = user_out + ret.submitid + std::string(".out");
     ret.source_path = source_path + ret.submitid + std::string(".") + ret.lang;
-    ret.gen_path =  exec_out;
+    ret.gen_folder_path = exec_out;
+    ret.gen_path = exec_out + ret.submitid;
     ret.comp_path = que_path(ret.prob_id) + ret.prob_id + std::string(".out");
     ret.des_path = que_path(ret.prob_id) + std::string("test_cases.txt");
     return ret;
@@ -85,7 +86,7 @@ const char** task_to_args(JudgeTask &jt){
     argv[5] = jt.output_path.c_str();
     argv[6] = jt.source_path.c_str();
     argv[7] = jt.submitid.c_str();
-    argv[8] = jt.gen_path.c_str();
+    argv[8] = jt.gen_folder_path.c_str();
     argv[9] = jt.comp_path.c_str();
     argv[10] = NULL;
     return argv;

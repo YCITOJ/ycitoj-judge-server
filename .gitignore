@@ -1,4 +1,5 @@
 /build/
 /.vscode/
 /sub/
-/gen/
+/gen/exec
+/gen/out
