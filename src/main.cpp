@@ -46,6 +46,11 @@ int main(){
             pthread_detach(*task->tid);
             pthread_mutex_unlock(&mutex);
         }
-        pthread_yield();
+        else if (task_queue.empty()){
+            usleep(10000);
+        }
+        else {
+            pthread_yield();
+        }
     }
 }
