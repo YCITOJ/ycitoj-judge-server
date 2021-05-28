@@ -28,11 +28,14 @@ int main(){
     // }
     // return 0;
 #endif
-    judge_server.connect_to_server((char*)"192.168.10.104", (char*)"4000");
+    judge_server.connect_to_server((char*)"192.168.0.183", (char*)"4000");
     judge_init();
     bool working = 0;
     while (1){
         if (!task_queue.empty() && !avali.empty()){
+            system("clear");
+            std::cout << "Avalible: " << avali.size() << std::endl;
+            std::cout << "Totle Tasks: " << task_queue.size() << std::endl; 
             JudgeTask* task = new JudgeTask();
             pthread_mutex_lock(&mutex);
             // static JudgeTask* task = (JudgeTask*) malloc(sizeof(JudgeTask));

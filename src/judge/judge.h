@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <fstream>
+#include <vector>
 #include <sys/wait.h>
 #include "../type/types.h"
 #include "../connector/connector.h"

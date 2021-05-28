@@ -32,6 +32,9 @@ struct JudgeTask
     std::string gen_path;
     std::string content;
     std::string comp_path;
+    std::string test_case;
+    std::string des_path;
+    std::string prob_id;
     pthread_t* tid;
     int testcases;
     JudgeTask(){};
@@ -45,12 +48,13 @@ struct conn_stat
     int client_fd;
 };
 
-JudgeTask parse_task(char* data);
 
-const char** task_to_args(JudgeTask &jt);
 extern const std::string ans_path;
 extern const std::string source_path;
 extern const std::string user_out;
 extern const std::string exec_out;
 extern const std::string judger_path;
 extern const std::string comp_path;
+JudgeTask parse_task(char* data);
+const char** task_to_args(JudgeTask &jt);
+void nxt_case(JudgeTask &jt, std::string cur_case);
