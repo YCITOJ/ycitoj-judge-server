@@ -64,7 +64,7 @@ void *judge(void *params)
             }
             waitpid(p, &stat, 0);
             ans = (WEXITSTATUS(stat));
-            std::cout << "COMPRES: " << ans << std::endl;
+            // std::cout << "COMPRES: " << ans << std::endl;
             if (ans != 0)
             {
                 res.jrs = WA;
@@ -88,7 +88,7 @@ void *judge(void *params)
 
 void judge_init()
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < MAXN_JUDGE_COUNT; i++)
     {
         avali.push(&judge_pool[i]);
     }
