@@ -5,7 +5,7 @@ const std::string comp_path = std::string("../comp/comp.sh");
 const std::string ans_path = serv_path + std::string("prob/");
 const std::string user_out = serv_path + std::string("gen/out/");
 const std::string exec_out = serv_path + std::string("gen/exec/");
-const std::string judger_path = serv_path + std::string("judge-core/judger");
+const std::string judger_path = serv_path + std::string("judge-core/judger_linux");
 const std::string source_path = serv_path + std::string("sub/");
 
 void JudgeTask::show_task(){

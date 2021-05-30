@@ -28,7 +28,7 @@ int main(){
     // }
     // return 0;
 #endif
-    judge_server.connect_to_server((char*)"192.168.43.219", (char*)"4000");
+    judge_server.connect_to_server((char*)"192.168.0.183", (char*)"85");
     judge_init();
     bool working = 0;
     while (1){
