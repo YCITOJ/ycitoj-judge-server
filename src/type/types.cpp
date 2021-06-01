@@ -68,7 +68,7 @@ JudgeTask parse_task(char* data){
     ret.source_path = conf.source_path + ret.submitid + std::string(".") + ret.lang;
     ret.gen_folder_path = conf.exec_out;
     ret.gen_path = conf.exec_out + ret.submitid;
-    ret.des_path = que_path(ret.prob_id) + std::string("test_cases.txt");
+    ret.des_path = que_path(ret.prob_id) + std::string("cases_list.txt");
     return ret;
 }   
 
