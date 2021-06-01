@@ -27,7 +27,7 @@ void *judge(void *params)
         const char **argv = task_to_args(*jt);
         if ((p = fork()) == 0)
         {
-            execve(judger_path.c_str(), (char **)argv, __environ);
+            execve(conf.judger_path.c_str(), (char **)argv, __environ);
             exit(0);
         }
         int stat;
@@ -60,11 +60,10 @@ void *judge(void *params)
             res.jrs = AC;
             if ((p = fork()) == 0)
             {
-                execve(comp_path.c_str(), (char **)argv, __environ);
+                execve(conf.comp_path.c_str(), (char **)argv, __environ);
             }
             waitpid(p, &stat, 0);
             ans = (WEXITSTATUS(stat));
-            // std::cout << "COMPRES: " << ans << std::endl;
             if (ans != 0)
             {
                 res.jrs = WA;
@@ -79,7 +78,6 @@ void *judge(void *params)
     remove(jt->output_path.c_str());
     pthread_mutex_lock(&mutex);
     judge_server.send_res(res);
-    // std::cout << "~~~~~~send:" << res.judgeid << std::endl;
     avali.push(jt->tid);
     delete jt;
     pthread_mutex_unlock(&mutex);

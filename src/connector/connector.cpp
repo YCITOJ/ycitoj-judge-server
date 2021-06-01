@@ -7,7 +7,6 @@ void Client::client_init(){
 
 void Client::close_connection(){
     close(stat.client_fd);
-    pthread_cancel(recv_thread);
 }
 int Client::open_clientfd(char* host, char* port){
     struct addrinfo *list, *p;
@@ -28,22 +27,29 @@ int Client::open_clientfd(char* host, char* port){
     freeaddrinfo(list);
     if (!p)
         return 0;
-    else 
+    else {
+        printf("Connected to %s:%s\n", host, port);
         return 1;
+    }
 }
 void* on_recv(void* app){
     conn_stat* stat = (conn_stat*) app;
     while (1){
         char *buff = (char*)malloc(sizeof(char) * MAX_COMM_LEN);
         memset(buff, 0 ,sizeof(buff));
-        recv(stat->client_fd, buff, MAX_COMM_LEN, 0);
+        int s;
+        if ((s = recv(stat->client_fd, buff, MAX_COMM_LEN, 0)) == -1){
+            std::cerr << "Connection closed" << std::endl;
+            std::cerr << "Trying to reconnect" << std::endl;
+            judge_server.close_connection();
+            judge_server.open_clientfd((char*)conf.host.c_str(), (char*)conf.port.c_str());
+            continue;
+        };
         pthread_mutex_lock(&mutex);
         JudgeTask jt = parse_task(buff);
         task_queue.push(jt);
         free(buff);
-        // jt.show_task();
         pthread_mutex_unlock(&mutex);
-        // std::cout << "id: " << ts.submitid << " added to queue" << std::endl;
     }
 }
 
@@ -51,7 +57,6 @@ bool Client::connect_to_server(char* host, char* port){
     if (!open_clientfd(host, port)){
         return 0;
     }
-    printf("Connected to %s:%s\n", host, port);
     pthread_create(&recv_thread, NULL, on_recv, &stat);
     return 1;
 }

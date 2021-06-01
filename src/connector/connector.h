@@ -14,15 +14,21 @@
 // #include <thread>
 #define LISTENQ 1024
 #define MAX_COMM_LEN 5000
+struct conn_stat
+{
+    int client_fd;
+    bool connected;
+};
+
 class Client
 {
 private:
     struct addrinfo hints;
-    int open_clientfd(char *host, char *port);
 
 public:
     conn_stat stat;
     pthread_t recv_thread;
+    int open_clientfd(char *host, char *port);
     void client_init();
     bool connect_to_server(char *host, char *port);
     bool send_res(Res res);

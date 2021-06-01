@@ -1,12 +1,13 @@
 #include "types.h"
-///mnt/c/Users/huawei/OneDrive/YCITOJ/judge-server
-const std::string serv_path = std::string("../");
-const std::string comp_path = std::string("../comp/comp.sh");
-const std::string ans_path = serv_path + std::string("prob/");
-const std::string user_out = serv_path + std::string("gen/out/");
-const std::string exec_out = serv_path + std::string("gen/exec/");
-const std::string judger_path = serv_path + std::string("judge-core/judger_linux");
-const std::string source_path = serv_path + std::string("sub/");
+Config conf;
+
+
+void config_init(){
+    std::ifstream ifs("../settings/default.txt");
+    ifs >> conf.host >> conf.port;
+    ifs >> conf.prob_path;
+    ifs.close();
+}
 
 void JudgeTask::show_task(){
     using namespace std;
@@ -51,8 +52,8 @@ std::string parse_code(char* data){
     str = std::string(tmp);
     return str;
 }
-std::string que_path(std::string que_id){
-    return  ans_path + que_id + std::string("/");
+std::string que_path(int que_id){
+    return  conf.prob_path + std::to_string((que_id / 100)) + "/" + std::to_string(que_id) + "/";
 }
 
 JudgeTask parse_task(char* data){
@@ -60,15 +61,13 @@ JudgeTask parse_task(char* data){
     ret.mem_limit = parse_string(data);
     ret.cpu_limit = parse_string(data);
     ret.lang = parse_string(data);
-    ret.prob_id = parse_string(data);
+    ret.prob_id = parse_int(data);
     ret.submitid = parse_string(data);
     ret.content = parse_code(data);
-    // ret.input_path =  que_path(que_id) + que_id + std::string(".in");
-    ret.output_path = user_out + ret.submitid + std::string(".out");
-    ret.source_path = source_path + ret.submitid + std::string(".") + ret.lang;
-    ret.gen_folder_path = exec_out;
-    ret.gen_path = exec_out + ret.submitid;
-    ret.comp_path = que_path(ret.prob_id) + ret.prob_id + std::string(".out");
+    ret.output_path = conf.user_out + ret.submitid + std::string(".out");
+    ret.source_path = conf.source_path + ret.submitid + std::string(".") + ret.lang;
+    ret.gen_folder_path = conf.exec_out;
+    ret.gen_path = conf.exec_out + ret.submitid;
     ret.des_path = que_path(ret.prob_id) + std::string("test_cases.txt");
     return ret;
 }   
