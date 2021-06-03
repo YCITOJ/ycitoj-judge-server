@@ -1,2 +1,2 @@
-192.168.0.183 85
-/mnt/d/project/Github/ycitoj-judge-server/prob/
+192.168.10.104 85
+/mnt/d/project/ycitoj/upload/problems/
