@@ -6,7 +6,7 @@ int main(){
     bool working = 0;
     while (1){
         if (!task_queue.empty() && !avali.empty()){
-            system("clear");
+            // system("clear");
             std::cout << "Avalible: " << avali.size() << std::endl;
             std::cout << "Totle Tasks: " << task_queue.size() << std::endl; 
             JudgeTask* task = new JudgeTask();

@@ -1,0 +1,3 @@
+/home/ubuntu/Github/ycitoj-judge-server/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/Github/ycitoj-judge-server/CMakeFiles/judge-server.dir
+/home/ubuntu/Github/ycitoj-judge-server/CMakeFiles/edit_cache.dir

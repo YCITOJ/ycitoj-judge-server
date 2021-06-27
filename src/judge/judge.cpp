@@ -8,6 +8,7 @@ void *judge(void *params)
     Res res;
     std::vector<std::string> cases;
     memset((void *)&res, 0, sizeof(res));
+    res.jrs = UKE;
     res.judgeid = jt->submitid;
     pthread_mutex_lock(&mutex);
     std::ofstream ofs(jt->source_path, std::ios::out);
@@ -21,10 +22,23 @@ void *judge(void *params)
     }
     ifs.close();
     pthread_mutex_unlock(&mutex);
+    if (cases.size() == 0)
+    {
+        std::cout << "Empty cases\n";
+        pthread_mutex_lock(&mutex);
+        judge_server.send_res(res);
+        avali.push(jt->tid);
+        delete jt;
+        pthread_mutex_unlock(&mutex);
+        pthread_exit(nullptr);
+    }
+    // std::cout << jt->des_path << std::endl;
+    // std::cout << cases.size() << std::endl;
     for (int i = 0; i < cases.size(); i++)
     {
         nxt_case(*jt, cases[i]);
         const char **argv = task_to_args(*jt);
+        printf("%s\n", conf.judger_path.c_str());
         if ((p = fork()) == 0)
         {
             execve(conf.judger_path.c_str(), (char **)argv, __environ);
@@ -70,7 +84,7 @@ void *judge(void *params)
                 break;
             }
         }
-        else 
+        else
             break;
     }
     remove(jt->source_path.c_str());

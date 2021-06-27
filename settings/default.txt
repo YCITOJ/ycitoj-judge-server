@@ -1,2 +1,3 @@
-192.168.10.104 85
-/mnt/d/project/ycitoj/upload/problems/
+localhost 85
+/home/ubuntu/Github/ycitoj/upload/problems/
+
