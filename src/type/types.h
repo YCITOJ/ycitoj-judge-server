@@ -4,6 +4,9 @@
 #include <ctype.h>
 #include <cstring>
 #include <fstream>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #define MAX_ARG_LEN 100
 #define PARAM_COUNT 15
 #define MAX_CODE_LEN 2000
@@ -90,4 +93,4 @@ extern Config conf;
 JudgeTask parse_task(char *data);
 const char **task_to_args(JudgeTask &jt);
 void nxt_case(JudgeTask &jt, std::string cur_case);
-void config_init();
+void serv_init();

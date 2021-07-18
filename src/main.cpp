@@ -1,8 +1,8 @@
 #include "headfile.h"
 int main(){
-    config_init();
-    judge_server.connect_to_server((char*)conf.host.c_str(), (char*)conf.port.c_str());
+    serv_init();
     judge_init();
+    judge_server.connect_to_server((char*)conf.host.c_str(), (char*)conf.port.c_str());
     bool working = 0;
     while (1){
         if (!task_queue.empty() && !avali.empty()){

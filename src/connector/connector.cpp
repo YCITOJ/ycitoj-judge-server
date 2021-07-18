@@ -35,6 +35,7 @@ int Client::open_clientfd(char *host, char *port)
         return 0;
     else
     {
+        // setsockopt(stat.client_fd, SOL_SOCKET, )
         printf("Connected to %s:%s\n", host, port);
         return 1;
     }
@@ -59,7 +60,7 @@ void *on_recv(void *app)
         };
         pthread_mutex_lock(&mutex);
 #ifdef DEBUG
-        printf("Receving:{%s}\n", buff);
+        printf("Receving:{content:%s, size:%d}\n", buff, sizeof(buff));
 #endif
         JudgeTask jt = parse_task(buff);
         task_queue.push(jt);

@@ -2,11 +2,29 @@
 Config conf;
 
 
-void config_init(){
+void serv_init(){
     std::ifstream ifs("../settings/default.txt");
     ifs >> conf.host >> conf.port;
     ifs >> conf.prob_path;
     ifs.close();
+    if (access("../gen", 0) == -1){
+        std::cout << "Creating gen folder..." << std::endl;
+        mkdir("../gen", S_IREAD | S_IWRITE);
+        mkdir("../gen/exec", S_IREAD | S_IWRITE);
+        mkdir("../gen/out", S_IREAD | S_IWRITE);
+    }
+    if (access("../sub", 0) == -1){
+        std::cout << "Creating sub folder..." << std::endl;
+        mkdir("../sub", S_IREAD | S_IWRITE);
+    }
+    if (access("../judge-core/judger_linux", X_OK) == -1){
+        std::cout << "Adding excutive privilege to judge-core" << std::endl;
+        chmod("../judge-core/judger_linux", S_IEXEC);
+    }
+    if (access("../comp/comp.sh", X_OK) == -1){
+        std::cout << "Adding excutive privilege to comp" << std::endl;
+        chmod("../comp/comp.sh", S_IEXEC);
+    }
 }
 
 void JudgeTask::show_task(){
