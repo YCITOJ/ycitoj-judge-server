@@ -14,6 +14,7 @@
 // #include <thread>
 #define LISTENQ 1024
 #define MAX_COMM_LEN 5000
+#define DEBUG
 struct conn_stat
 {
     int client_fd;

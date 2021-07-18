@@ -11,6 +11,10 @@ void *judge(void *params)
     res.jrs = UKE;
     res.judgeid = jt->submitid;
     pthread_mutex_lock(&mutex);
+    #ifdef DEBUG
+        std::cout << "DES_PATH:" << jt->des_path << std::endl;
+        std::cout << "SOURCE: " << jt->source_path << std::endl;
+    #endif
     std::ofstream ofs(jt->source_path, std::ios::out);
     ofs << jt->content;
     ofs.close();
