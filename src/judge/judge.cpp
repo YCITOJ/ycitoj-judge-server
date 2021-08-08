@@ -1,6 +1,33 @@
 #include "judge.h"
+#include <algorithm>
+
 pthread_t judge_pool[MAXN_JUDGE_COUNT];
 std::queue<pthread_t *> avali;
+
+struct JudgerData
+{
+    int usage_time;
+    int usage_mem;
+};
+
+JudgerData read_from_pipe(const std::string &pipe_name)
+{
+    if (access(pipe_name.c_str(), F_OK) == -1)
+    {
+        if(mkfifo(pipe_name.c_str(), 0777) != 0){
+            throw std::runtime_error("create file failed!\n");
+        };
+    }
+    int pipe_fd = open(pipe_name.c_str(), O_RDONLY);
+
+    if (pipe_fd == -1)
+        throw std::runtime_error("open file failed!\n");
+    JudgerData res;
+    read(pipe_fd, &res, sizeof(res));
+    close(pipe_fd);
+    return res;
+}
+
 void *judge(void *params)
 {
     pid_t p;
@@ -11,10 +38,10 @@ void *judge(void *params)
     res.jrs = UKE;
     res.judgeid = jt->submitid;
     pthread_mutex_lock(&mutex);
-    #ifdef DEBUG
-        std::cout << "DES_PATH:" << jt->des_path << std::endl;
-        std::cout << "SOURCE: " << jt->source_path << std::endl;
-    #endif
+#ifdef DEBUG
+    // std::cout << "DES_PATH:" << jt->des_path << std::endl;
+    // std::cout << "SOURCE: " << jt->source_path << std::endl;
+#endif
     std::ofstream ofs(jt->source_path, std::ios::out);
     ofs << jt->content;
     ofs.close();
@@ -42,15 +69,26 @@ void *judge(void *params)
     {
         nxt_case(*jt, cases[i]);
         const char **argv = task_to_args(*jt);
-        printf("%s\n", conf.judger_path.c_str());
+        // printf("%s\n", conf.judger_path.c_str());
         if ((p = fork()) == 0)
         {
             execve(conf.judger_path.c_str(), (char **)argv, __environ);
             exit(0);
         }
+        try
+        {
+            JudgerData jd = read_from_pipe("/tmp/pipe" + res.judgeid);
+            res.cpuuse = std::max(jd.usage_time, res.cpuuse);
+            res.memuse = std::max(jd.usage_mem, res.memuse);
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cout << e.what() << std::endl;
+        }
         int stat;
         waitpid(p, &stat, 0);
         int ans = WEXITSTATUS(stat);
+        std::cout << ans << std::endl;
         switch (ans)
         {
         case 0:
@@ -76,11 +114,14 @@ void *judge(void *params)
         if (res.jrs == NORMAL)
         {
             res.jrs = AC;
+            std::cout << conf.comp_path << std::endl;
+            std::cout << conf.judger_path << std::endl;
             if ((p = fork()) == 0)
             {
                 execve(conf.comp_path.c_str(), (char **)argv, __environ);
             }
             waitpid(p, &stat, 0);
+            std::cout << ">_<" << std::endl;
             ans = (WEXITSTATUS(stat));
             if (ans != 0)
             {
