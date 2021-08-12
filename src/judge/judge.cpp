@@ -1,5 +1,6 @@
 #include "judge.h"
 #include <algorithm>
+#include "../compare/comp.cpp"
 
 pthread_t judge_pool[MAXN_JUDGE_COUNT];
 std::queue<pthread_t *> avali;
@@ -63,13 +64,10 @@ void *judge(void *params)
         pthread_mutex_unlock(&mutex);
         pthread_exit(nullptr);
     }
-    // std::cout << jt->des_path << std::endl;
-    // std::cout << cases.size() << std::endl;
     for (int i = 0; i < cases.size(); i++)
     {
         nxt_case(*jt, cases[i]);
         const char **argv = task_to_args(*jt);
-        // printf("%s\n", conf.judger_path.c_str());
         if ((p = fork()) == 0)
         {
             execve(conf.judger_path.c_str(), (char **)argv, __environ);
@@ -88,7 +86,6 @@ void *judge(void *params)
         int stat;
         waitpid(p, &stat, 0);
         int ans = WEXITSTATUS(stat);
-        std::cout << ans << std::endl;
         switch (ans)
         {
         case 0:
@@ -114,20 +111,7 @@ void *judge(void *params)
         if (res.jrs == NORMAL)
         {
             res.jrs = AC;
-            std::cout << conf.comp_path << std::endl;
-            std::cout << conf.judger_path << std::endl;
-            if ((p = fork()) == 0)
-            {
-                execve(conf.comp_path.c_str(), (char **)argv, __environ);
-            }
-            waitpid(p, &stat, 0);
-            std::cout << ">_<" << std::endl;
-            ans = (WEXITSTATUS(stat));
-            if (ans != 0)
-            {
-                res.jrs = WA;
-                break;
-            }
+            if(!comp(jt->comp_path, jt->output_path)) res.jrs = WA;
         }
         else
             break;
