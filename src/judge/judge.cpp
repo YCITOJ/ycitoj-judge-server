@@ -15,7 +15,8 @@ JudgerData read_from_pipe(const std::string &pipe_name)
 {
     if (access(pipe_name.c_str(), F_OK) == -1)
     {
-        if(mkfifo(pipe_name.c_str(), 0777) != 0){
+        if (mkfifo(pipe_name.c_str(), 0777) != 0)
+        {
             throw std::runtime_error("create file failed!\n");
         };
     }
@@ -70,7 +71,7 @@ void *judge(void *params)
         const char **argv = task_to_args(*jt);
         if ((p = fork()) == 0)
         {
-            execve(conf.judger_path.c_str(), (char **)argv, __environ);
+            execve(conf.judger_path.c_str(), (char **)argv, NULL);
             exit(0);
         }
         try
@@ -111,7 +112,8 @@ void *judge(void *params)
         if (res.jrs == NORMAL)
         {
             res.jrs = AC;
-            if(!comp(jt->comp_path, jt->output_path)) res.jrs = WA;
+            if (!comp(jt->comp_path, jt->output_path))
+                res.jrs = WA;
         }
         else
             break;
