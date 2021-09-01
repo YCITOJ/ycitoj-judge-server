@@ -131,7 +131,7 @@ void *judge(void *params)
 
 void judge_init()
 {
-    for (int i = 0; i < MAXN_JUDGE_COUNT; i++)
+    for (int i = 0; i < conf.max_thread_cnt; i++)
     {
         avali.push(&judge_pool[i]);
     }

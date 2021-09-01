@@ -5,7 +5,7 @@ Config conf;
 void serv_init(){
     std::ifstream ifs("../settings/default.txt");
     ifs >> conf.host >> conf.port;
-    ifs >> conf.prob_path;
+    ifs >> conf.prob_path >> conf.max_thread_cnt;
     ifs.close();
     if (access("../gen", 0) == -1){
         std::cout << "Creating gen folder..." << std::endl;

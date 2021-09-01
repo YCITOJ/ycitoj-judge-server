@@ -46,6 +46,7 @@ struct Config
     std::string source_path;
     std::string host; 
     std::string port;
+    int max_thread_cnt;
     Config(){
         serv_path = std::string("../");
         comp_path = std::string("../comp/comp.sh");
