@@ -10,32 +10,30 @@
 #include <pthread.h>
 #include <queue>
 #include <string>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include "../type/types.h"
 // #include <thread>
 #define LISTENQ 1024
 #define MAX_COMM_LEN 5000
 #define DEBUG
-struct conn_stat
-{
-    int client_fd;
-    bool connected;
-};
-
-class Client
+class Server
 {
 private:
-    struct addrinfo hints;
-
+    struct sockaddr_in hints;
 public:
-    conn_stat stat;
     pthread_t recv_thread;
-    int open_clientfd(char *host, char *port);
-    void client_init();
-    bool connect_to_server(char *host, char *port);
+    uint16_t server_port;
+    int client_fd;
+    int listen_fd;
+    int open_listenfd(uint16_t port);
+    int accept_conn();
+    void server_init();
+    bool wait_for_client(uint16_t port);
     bool send_res(Res res);
     void close_connection();
 };
 
 extern std::queue<JudgeTask> task_queue;
-extern Client judge_server;
+extern Server judge_server;
 extern pthread_mutex_t mutex;

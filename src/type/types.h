@@ -45,7 +45,7 @@ struct Config
     std::string judger_path;
     std::string source_path;
     std::string host; 
-    std::string port;
+    uint16_t port;
     int max_thread_cnt;
     Config(){
         serv_path = std::string("../");
