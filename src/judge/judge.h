@@ -8,7 +8,7 @@
 #include "../connector/connector.h"
 #define MAXN_JUDGE_COUNT 8
 extern pthread_t judge_pool[MAXN_JUDGE_COUNT];
-extern std::queue<pthread_t*> avali;
+extern int avali;
 
 class Judger{
 public:

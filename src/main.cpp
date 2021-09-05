@@ -7,18 +7,18 @@ int main()
     bool working = 0;
     while (1)
     {
-        if (!task_queue.empty() && !avali.empty())
+        if (!task_queue.empty() && avali > 0)
         {
             // std::cout << "Avalible: " << avali.size() << std::endl;
             // std::cout << "Totle Tasks: " << task_queue.size() << std::endl;
             JudgeTask *task = new JudgeTask();
             pthread_mutex_lock(&mutex);
             *task = task_queue.front();
-            task->tid = avali.front();
             task_queue.pop();
-            avali.pop();
-            pthread_create(task->tid, NULL, judge, (void *)task);
-            pthread_detach(*task->tid);
+            avali--;
+            pthread_create(&task->tid, NULL, judge, (void *)task);
+            // pthread_detach(task->tid);
+            // pthread_join(task->tid);
             pthread_mutex_unlock(&mutex);
         }
         else if (task_queue.empty())

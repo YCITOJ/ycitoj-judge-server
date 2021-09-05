@@ -3,7 +3,7 @@
 #include "../compare/comp.cpp"
 
 pthread_t judge_pool[MAXN_JUDGE_COUNT];
-std::queue<pthread_t *> avali;
+int avali;
 
 struct JudgerData
 {
@@ -36,6 +36,7 @@ void *judge(void *params)
     JudgeTask *jt = (JudgeTask *)params;
     Res res;
     std::vector<std::string> cases;
+    pthread_detach(jt->tid);
     memset((void *)&res, 0, sizeof(res));
     res.jrs = UKE;
     res.judgeid = jt->submitid;
@@ -60,7 +61,7 @@ void *judge(void *params)
         std::cout << "Empty cases\n";
         pthread_mutex_lock(&mutex);
         judge_server.send_res(res);
-        avali.push(jt->tid);
+        avali++;
         delete jt;
         pthread_mutex_unlock(&mutex);
         pthread_exit(nullptr);
@@ -123,7 +124,7 @@ void *judge(void *params)
     remove(jt->output_path.c_str());
     pthread_mutex_lock(&mutex);
     judge_server.send_res(res);
-    avali.push(jt->tid);
+    avali++;
     delete jt;
     pthread_mutex_unlock(&mutex);
     pthread_exit(nullptr);
@@ -131,8 +132,5 @@ void *judge(void *params)
 
 void judge_init()
 {
-    for (int i = 0; i < conf.max_thread_cnt; i++)
-    {
-        avali.push(&judge_pool[i]);
-    }
+    avali = conf.max_thread_cnt;
 }

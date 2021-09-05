@@ -1,3 +1,3 @@
-localhost 23333
-/mnt/e/Project/GITHUB/YCITOJ/ycitoj-judge-server/prob/
-4
+10.0.0.9 23333
+/mnt/d/Project/ycitoj-judge-server/prob/
+1
