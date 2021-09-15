@@ -15,7 +15,7 @@
 #include "../type/types.h"
 // #include <thread>
 #define LISTENQ 1024
-#define MAX_COMM_LEN 5000
+#define MAX_COMM_LEN 50000
 #define DEBUG
 class Server
 {
