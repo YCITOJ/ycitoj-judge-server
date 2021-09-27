@@ -46,8 +46,15 @@ void *judge(void *params)
     // std::cout << "SOURCE: " << jt->source_path << std::endl;
 #endif
     std::ofstream ofs(jt->source_path, std::ios::out);
-    ofs << jt->content;
-    ofs.close();
+    if (!ofs.good())
+    {
+        std::cout << "open source:" + jt->source_path + "failed\n";
+    }
+    else
+    {
+        ofs << jt->content;
+        ofs.close();
+    }
     std::ifstream ifs(jt->des_path, std::ios::in);
     std::string tmp;
     while (ifs >> tmp)
