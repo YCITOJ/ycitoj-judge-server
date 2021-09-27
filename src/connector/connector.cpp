@@ -13,7 +13,8 @@ void Server::close_connection()
 int Server::open_listenfd(uint16_t port)
 {
     server_port = 0;
-    if((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
+    if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+    {
         std::cerr << "Failed to create listen_fd" << std::endl;
         return -1;
     }
@@ -21,6 +22,8 @@ int Server::open_listenfd(uint16_t port)
     hints.sin_family = AF_INET;
     hints.sin_addr.s_addr = htonl(INADDR_ANY);
     hints.sin_port |= htons(port);
+    int on = 1;
+    setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
     if (bind(listen_fd, (sockaddr *)&hints, sizeof(hints)) == -1)
     {
         std::cerr << "Failed to bind listen FD" << std::endl;
@@ -41,7 +44,7 @@ int Server::accept_conn()
     sockaddr_in addr;
     socklen_t addr_len = sizeof(addr);
     std::cout << "listening on " << server_port << std::endl;
-    if ((client_fd = accept(listen_fd, (sockaddr*)&addr, &addr_len)) <= 0)
+    if ((client_fd = accept(listen_fd, (sockaddr *)&addr, &addr_len)) <= 0)
     {
         std::cerr << "Failed To Accept Connection" << std::endl;
         return -1;
@@ -50,9 +53,9 @@ int Server::accept_conn()
     return 0;
 }
 
-void *on_recv(void* fd)
+void *on_recv(void *fd)
 {
-    int client_fd = *((int*) fd);
+    int client_fd = *((int *)fd);
     while (1)
     {
         char *buff = (char *)malloc(sizeof(char) * MAX_COMM_LEN);

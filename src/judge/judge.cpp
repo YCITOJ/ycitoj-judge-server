@@ -114,11 +114,15 @@ void *judge(void *params)
         {
             res.jrs = AC;
             if (!comp(jt->comp_path, jt->output_path))
+            {
                 res.jrs = WA;
+                goto end_pos;
+            }
         }
         else
             break;
     }
+end_pos:
     remove(jt->source_path.c_str());
     remove(jt->gen_path.c_str());
     remove(jt->output_path.c_str());
