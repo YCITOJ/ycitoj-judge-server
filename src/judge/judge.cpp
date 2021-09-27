@@ -56,6 +56,10 @@ void *judge(void *params)
         ofs.close();
     }
     std::ifstream ifs(jt->des_path, std::ios::in);
+    if (!ifs.good())
+    {
+        std::cout << "open file:" + jt->des_path + "failed\n";
+    }
     std::string tmp;
     while (ifs >> tmp)
     {

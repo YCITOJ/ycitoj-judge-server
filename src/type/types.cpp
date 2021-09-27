@@ -71,7 +71,7 @@ std::string parse_code(char* data){
     return str;
 }
 std::string que_path(int que_id){
-    return  conf.prob_path + std::to_string((que_id / 100)) + "/"  + std::to_string(que_id) + "/" + "cases/";
+    return  conf.prob_path + std::to_string((que_id / 100)) + "/"  + std::to_string(que_id%100) + "/" + "cases/";
 }
 
 JudgeTask parse_task(char* data){
