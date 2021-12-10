@@ -53,6 +53,21 @@ namespace Utile
 		ofs.close();
 	}
 
+	void env_init(){
+		if (access("./prob", 0) < 0)
+			mkdir("./prob", 0777);
+		if (access("./prob/tmp/", 0) < 0)
+			mkdir("./prob/tmp/", 0777);
+		if (access("./sub", 0) < 0)
+			mkdir("./sub", 0777);
+		if (access("./out", 0) < 0)
+			mkdir("./out", 0777);
+		if (access("./exec", 0) < 0)
+			mkdir("./exec", 0777);
+		if(access("./judger", 0) < 0)
+			mkdir("./judger", 0777);
+	}
+
 	bool check_file(std::string file_path)
 	{
 		std::ifstream ifs(file_path.c_str());

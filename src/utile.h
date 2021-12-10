@@ -42,6 +42,7 @@ namespace Utile
 	JudgerData read_from_pipe(const std::string &pipe_name);
 	void create_pipe(const std::string &pipe_pth);
 	int unzip(std::string prob_id);
+	void env_init();
 	template <typename T, typename... Ts>
 	void build_pack(char **pth, T arg, Ts... args_left)
 	{

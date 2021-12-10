@@ -14,6 +14,7 @@
 #include <time.h>
 int main()
 {
+	Utile::env_init();
 	Judge::JudgeServer judge_server;
 	try
 	{

@@ -1,5 +1,4 @@
 build/
 .vscode/
-gen/
-sub/
-test.cpp
+ycitoj-judger/
+JudgeServerV2
