@@ -1,31 +1,29 @@
-#include "headfile.h"
+#ifdef _WIN32
+#define _WIN32_WINNT 0x0A00
+#endif
+#define ASIO_STANDALONE
+#include "net.h"
+#include "utile.h"
+#include "judge.h"
+#include "compare.h"
+#include "GUI.h"
+#include "file.h"
+#include <thread>
+#include <vector>
+#include <chrono>
+#include <time.h>
 int main()
 {
-    serv_init();
-    judge_init();
-    if(judge_server.wait_for_client(conf.port) == 0) exit(0);
-    bool working = 0;
-    while (1)
-    {
-        if (!task_queue.empty() && avali > 0)
-        {
-            JudgeTask *task = new JudgeTask();
-            pthread_mutex_lock(&mutex);
-            *task = task_queue.front();
-            task_queue.pop();
-            avali--;
-            pthread_create(&task->tid, NULL, judge, (void *)task);
-            pthread_mutex_unlock(&mutex);
-        }
-        else if (task_queue.empty())
-        {
-            usleep(10000);
-        }
-        else
-        {
-#ifdef __linux__
-            pthread_yield();
-#endif
-        }
-    }
+	Judge::JudgeServer judge_server;
+	try
+	{
+		judge_server.run_judge();
+		// judge_server.run_judge();
+
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	return 0;
 }

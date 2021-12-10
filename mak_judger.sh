@@ -1,0 +1,1 @@
+g++ ./ycitoj-judger/src/*.cpp -o ./judger/judger_linux -lpthread -std=c++17

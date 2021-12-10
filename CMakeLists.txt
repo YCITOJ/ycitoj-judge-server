@@ -1,16 +1,21 @@
-cmake_minimum_required(VERSION 2.8)
-project(judge-server)
+cmake_minimum_required(VERSION 3.10)
+project(JudgeServerV2)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 LINK_LIBRARIES("pthread")
-# LINK_LIBRARIES("seccomp")
-set(CMAKE_C_FLAGS "-O3 -std=c++11 -pie -fPIC -pthread")
 add_executable(
-        judge-server
-        src/connector/connector.cpp
-        src/connector/connector.h
-        src/type/types.cpp
-        src/type/types.h
-        src/judge/judge.h
-        src/judge/judge.cpp
-        src/headfile.h
-        src/main.cpp
-)
+    JudgeServerV2 
+    ./src/main.cpp
+    ./src/compare.cpp
+    ./src/definitions.cpp
+    ./src/file.cpp
+    ./src/GUI.cpp
+    ./src/json_parser.cpp
+    ./src/json_parser.hpp
+    ./src/judge.cpp
+    ./src/message.cpp
+    ./src/net.cpp
+    ./src/utile.cpp
+    )
+set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}")
+install(TARGETS JudgeServerV2 RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
