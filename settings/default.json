@@ -1,10 +1,10 @@
 {
     "pipe_base_path": "/tmp/",
-    "judger_path" : "/home/muffin/project/ycitoj-judge-server/judger/judger_linux",
-    "exec_folder" : "/home/muffin/project/ycitoj-judge-server/exec/",
-    "sub_folder" : "//home/muffin/project/ycitoj-judge-server/sub/",
-    "user_out_folder" : "/home/muffin/project/ycitoj-judge-server/out/",
-    "prob_set_path" : "/home/muffin/project/ycitoj-judge-server/prob/",
+    "judger_path" : "/home/ubuntu/apps/ycitoj-judge-server/judger/judger_linux",
+    "exec_folder" : "/home/ubuntu/apps/ycitoj-judge-server/exec/",
+    "sub_folder" : "/home/ubuntu/apps/ycitoj-judge-server/sub/",
+    "user_out_folder" : "/home/ubuntu/apps/ycitoj-judge-server/out/",
+    "prob_set_path" : "/home/ubuntu/apps/ycitoj-judge-server/prob/",
     "secure_token" : "HAHAHAHAHA",
     "max_threads" : 4,
     "port" : 23333

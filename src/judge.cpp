@@ -148,7 +148,6 @@ namespace Judge
 		sendjson.add_pair("type", JSON::val("pull_cases"));
 		sendjson.add_pair("prob_id", JSON::val(std::stoi(prob_id)));
 		Message send_message = Message(sendjson.to_string());
-		std::cout << "AAA" << std::endl;
 		send(send_message);
 	}
 
@@ -213,6 +212,9 @@ namespace Judge
 			int res = Utile::exec(judger_path, case_json, task.pipe_path,
 								  std::to_string(task.mem_limit), std::to_string(task.time_limit), task.lang, i.ans_in, task.user_out, task.user_source, task.submit_id,
 								  exec_folder);
+			std::string check_msg;
+			max_time_usage = std::max(max_time_usage, (int)case_json["time_usage"].get_int());
+			max_mem_usage = std::max(max_mem_usage, (int)case_json["mem_usage"].get_int());
 			if (res != 0)
 			{
 				verdict = res;
@@ -220,9 +222,6 @@ namespace Judge
 				v.push_back(case_json);
 				break;
 			}
-			std::string check_msg;
-			max_time_usage = std::max(max_time_usage, (int)case_json["time_usage"].get_int());
-			max_mem_usage = std::max(max_mem_usage, (int)case_json["mem_usage"].get_int());
 			if (!Comparator::compare(task.user_out, i.ans_out, check_msg))
 			{
 				case_json.add_pair("check_msg", JSON::val(check_msg));
