@@ -1,6 +1,6 @@
 #include "definitions.h"
 #include "json_parser.hpp"
-#include "utile.h"
+#include "util.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -18,16 +18,12 @@ namespace Judge {
 	JSON* config;
 	void init() {
 		std::ifstream ifs("./settings/default.json");
-		//std::cout << "AAA" << std::endl;
 		if (ifs.good()) {
 			ifs.close();
-			std::shared_ptr<std::string> str = Utile::read_file("./settings/default.json");
-			//std::cout << "AAA" << std::endl;
+			std::shared_ptr<std::string> str = Util::read_file("./settings/default.json");
 			config = new JSON(*str);
-			// std::cout << config->to_string() << std::endl;
 		}
 		else {
-			//std::cout << "AAA" << std::endl;
 			throw std::runtime_error("Unable to find default.json");
 		}
 

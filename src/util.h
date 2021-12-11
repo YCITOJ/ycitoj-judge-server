@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #endif
-namespace Utile
+namespace Util
 {
 	struct JudgerData
 	{

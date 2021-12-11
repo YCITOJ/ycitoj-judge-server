@@ -15,7 +15,7 @@ add_executable(
     ./src/judge.cpp
     ./src/message.cpp
     ./src/net.cpp
-    ./src/utile.cpp
+    ./src/util.cpp
     )
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}")
 install(TARGETS JudgeServerV2 RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

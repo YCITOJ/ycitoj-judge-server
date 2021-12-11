@@ -3,7 +3,7 @@
 #endif
 #define ASIO_STANDALONE
 #include "net.h"
-#include "utile.h"
+#include "util.h"
 #include "judge.h"
 #include "compare.h"
 #include "GUI.h"
@@ -14,7 +14,7 @@
 #include <time.h>
 int main()
 {
-	Utile::env_init();
+	Util::env_init();
 	Judge::JudgeServer judge_server;
 	try
 	{

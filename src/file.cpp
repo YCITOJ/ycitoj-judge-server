@@ -4,12 +4,12 @@
 #include <cstring>
 #include <iostream>
 #include "file.h"
-#include "utile.h"
+#include "util.h"
 clock_t start;
 namespace Net
 {
     void File::print(){
-        using namespace Utile;
+        using namespace Util;
         c_log("file_name: " + file_name);
         c_log("file_path: " + file_path);
         c_log("file_size: " + std::to_string(size));
@@ -23,11 +23,11 @@ namespace Net
         std::cout << "Trans id: " << file_pack.trans_id << " : " << file.cur_size * 100ll / file.size << "%" << std::endl;
         if (file.cur_size == file.size)
         {   
-            Utile::c_log("Write to " + file.file_path + file.file_name);
             std::string dest_path = file.file_path + file.file_name + ".zip";
-            Utile::write_to_file(dest_path, file.data);
+            Util::write_to_file(dest_path, file.data);
+            Util::c_log("Write to " + dest_path);
             int ret = std::stoi(file.file_name);
-            Utile::unzip(file.file_name);
+            Util::unzip(file.file_name);
             remove(dest_path.c_str());
             file_map.erase(file_pack.trans_id);
             return ret;

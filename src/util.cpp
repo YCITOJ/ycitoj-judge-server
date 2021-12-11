@@ -1,4 +1,4 @@
-#include "utile.h"
+#include "util.h"
 #include <sstream>
 #include <cstdarg>
 #include <memory>
@@ -12,7 +12,7 @@
 #else
 #include <windows.h>
 #endif
-namespace Utile
+namespace Util
 {
 	std::string pipe_base_path = "/tmp/";
 	std::shared_ptr<std::string> read_file(std::string file_path)
@@ -155,7 +155,7 @@ namespace Utile
 		std::string tmp_path = Judge::prob_set_path + "tmp/";
 		std::string prob_path = path + prob_id;
 		std::string c_name = path + std::to_string(std::stoi(prob_id) % 100);
-		std::string ins = "unzip -o -q -d " + path + ' ' + tmp_path + prob_id + ".zip"; 
+        std::string ins = "unzip -o -q -d " + path + ' ' + tmp_path + prob_id + ".zip";
 		if (access(c_name.c_str(), 0) != -1){
 			rm_dir(c_name.c_str());
 		}

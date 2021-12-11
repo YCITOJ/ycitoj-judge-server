@@ -1,5 +1,5 @@
 #include "net.h"
-#include "utile.h"
+#include "util.h"
 #define SET_PATH "./settings/default.json"
 // #define CPU_BIGENDIAN
 namespace Net
@@ -50,7 +50,7 @@ namespace Net
 								 if (!is_varifyed)
 								 {
 									 JSON tok = msg->to_json();
-									 if (!Utile::check_json(tok, "secure_token"))
+									 if (!Util::check_json(tok, "secure_token"))
 									 {
 										 std::cerr << "Invalid request" << std::endl;
 										 // close_sock();
@@ -94,7 +94,7 @@ namespace Net
 								 int body_len = msg->header();
 								 msg->rsize(head_len + body_len);
 								 read_body(body_len, msg);
-								//  Utile::c_log("body_len : " + std::to_string(body_len));
+								//  Util::c_log("body_len : " + std::to_string(body_len));
 							 }
 							 else
 							 {
@@ -167,7 +167,7 @@ namespace Net
 			});
 	}
 
-	Server::Server() : conf(Utile::read_json(SET_PATH)), acceptor(io_context, tcp::endpoint(tcp::v4(), conf["port"].get_int())), is_connected(false)
+	Server::Server() : conf(Util::read_json(SET_PATH)), acceptor(io_context, tcp::endpoint(tcp::v4(), conf["port"].get_int())), is_connected(false)
 	{
 		try
 		{

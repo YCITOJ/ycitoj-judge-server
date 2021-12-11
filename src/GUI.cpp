@@ -2,7 +2,7 @@
 #include "net.h"
 using namespace std;
 void watch(const Judge::JudgeServer& s){
-    using namespace Utile;
+    using namespace Util;
     while (1){
         std::string stat;
         if (s.stat == Net::RUNNING){

@@ -1,5 +1,5 @@
 #include "judge.h"
-#include "utile.h"
+#include "util.h"
 #include "compare.h"
 #include <algorithm>
 #include <thread>
@@ -27,16 +27,16 @@ namespace Judge
 	}
 
 	bool Task::init(){
-		Utile::write_code(submit_id, code, lang);
+		Util::write_code(submit_id, code, lang);
 		std::string info_path = prob_path + "cases" + '/' + "config.json";
 		if (access(info_path.c_str(), 0) < 0){
 			return 0;
 		}
-		JSON conf = Utile::read_json(info_path);
+		JSON conf = Util::read_json(info_path);
 		std::vector<JSON> case_list = conf["test_cases"].get_list();
 		mem_limit = conf["problem_info"]["memory_limit"].get_int();
 		time_limit = conf["problem_info"]["time_limit"].get_int();
-		pipe_path = Utile::pipe_base_path + "pipe" + submit_id;
+		pipe_path = Util::pipe_base_path + "pipe" + submit_id;
 		for (auto i : case_list)
 		{
 			cases.push_back(Case(i.get_str(), prob_path));
@@ -49,7 +49,7 @@ namespace Judge
 		remove(user_out.c_str());
 		remove(user_source.c_str());
 		remove(exec_path.c_str());
-		remove((Utile::pipe_base_path + "pipe" + submit_id).c_str());
+		remove((Util::pipe_base_path + "pipe" + submit_id).c_str());
 	}
 
 	JudgeServer::JudgeServer() : File_Server()
@@ -70,9 +70,9 @@ namespace Judge
 			if (user_out_folder.back() != '/')
 				user_out_folder += '/';
 
-			Utile::pipe_base_path = conf["pipe_base_path"].get_str();
-			if (Utile::pipe_base_path.back() != '/')
-				Utile::pipe_base_path += '/';
+			Util::pipe_base_path = conf["pipe_base_path"].get_str();
+			if (Util::pipe_base_path.back() != '/')
+				Util::pipe_base_path += '/';
 
 			exec_folder = conf["exec_folder"].get_str();
 			if (exec_folder.back() != '/')
@@ -88,7 +88,7 @@ namespace Judge
 
 	void JudgeServer::handle_task(JSON msg)
 	{
-		if (Utile::check_json(msg, "judge"))
+		if (Util::check_json(msg, "judge"))
 		{
 			JSON judge_msg = msg["judge"];
 			Task judge_task = Task(judge_msg["prob_id"].get_str(), judge_msg["sub_id"].get_str(), judge_msg["lang"].get_str(), judge_msg["code"].get_str());
@@ -109,18 +109,18 @@ namespace Judge
 				}
 			}
 		}
-		else if (Utile::check_json(msg, "query"))
+		else if (Util::check_json(msg, "query"))
 		{
 			JSON query_msg = msg["query"];
 			query_info(query_msg.get_str());
 		}
-		else if (Utile::check_json(msg, "file"))
+		else if (Util::check_json(msg, "file"))
 		{
 			std::string file_path = Judge::prob_set_path + "tmp/";
 			Net::File file(msg["file"]["size"].get_int(), file_path, msg["file"]["file_name"].get_str());
 			insert_file(file, msg["file"]["trans_id"].get_int());
 		}
-		else if (Utile::check_json(msg, "file_pack"))
+		else if (Util::check_json(msg, "file_pack"))
 		{
 			JSON pack_info = msg["file_pack"];
 			Net::File_Pack file_pack(pack_info["trans_id"].get_int(), pack_info["pack_size"].get_int(), pack_info["insert_pos"].get_int());
@@ -168,7 +168,7 @@ namespace Judge
 
 	bool JudgeServer::check_version(int ver, std::string prob_id)
 	{
-		std::string prob_folder_path = Utile::get_prob_path(prob_id);
+		std::string prob_folder_path = Util::get_prob_path(prob_id);
 		if (access(prob_folder_path.c_str(), 0) == -1) return false;
 		int old_version = read_prob_info(prob_id)["problem_info"]["version"].get_int();
 		return old_version == ver;
@@ -176,8 +176,8 @@ namespace Judge
 
 	JSON JudgeServer::read_prob_info(std::string prob_id)
 	{
-		std::string case_path = Utile::get_prob_path(prob_id) + "cases/config.json";
-		return Utile::read_json(case_path);
+		std::string case_path = Util::get_prob_path(prob_id) + "cases/config.json";
+		return Util::read_json(case_path);
 	}
 
 	int JudgeServer::get_pressure() const
@@ -201,7 +201,7 @@ namespace Judge
 		JSON msg("{}");
 		msg.add_pair("type", JSON::val("submission_result"));
 		msg.add_pair("subid", JSON::val(task.submit_id));
-		int verdict = Utile::AC;
+		int verdict = Util::AC;
 		bool err = 0;
 		int max_time_usage = 0;
 		int max_mem_usage = 0;
@@ -209,7 +209,7 @@ namespace Judge
 		for (auto i : task.cases)
 		{
 			JSON case_json("{}");
-			int res = Utile::exec(judger_path, case_json, task.pipe_path,
+			int res = Util::exec(judger_path, case_json, task.pipe_path,
 								  std::to_string(task.mem_limit), std::to_string(task.time_limit), task.lang, i.ans_in, task.user_out, task.user_source, task.submit_id,
 								  exec_folder);
 			std::string check_msg;
@@ -225,15 +225,15 @@ namespace Judge
 			if (!Comparator::compare(task.user_out, i.ans_out, check_msg))
 			{
 				case_json.add_pair("check_msg", JSON::val(check_msg));
-				case_json.add_pair("judge_res", JSON::val(Utile::WA));
+				case_json.add_pair("judge_res", JSON::val(Util::WA));
 				v.push_back(case_json);
-				verdict = Utile::WA;
+				verdict = Util::WA;
 				break;
 			}
 			else
 			{
 				case_json.add_pair("check_msg", JSON::val(check_msg));
-				case_json.add_pair("judge_res", JSON::val(Utile::AC));
+				case_json.add_pair("judge_res", JSON::val(Util::AC));
 				v.push_back(case_json);
 			}
 		}
@@ -320,5 +320,5 @@ namespace Judge
 			// std::cout << task.user_source << std::endl;
 			// std::cout << task.submit_id << std::endl;
 			// std::cout << exec_folder << std::endl;
-			// int res = Utile::exec(std::string("/home/muffin/Judge_ServerV2/thread_test/a.out"), case_json, std::string("1"));
+			// int res = Util::exec(std::string("/home/muffin/Judge_ServerV2/thread_test/a.out"), case_json, std::string("1"));
 */
